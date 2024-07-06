@@ -46,7 +46,7 @@ Pygments
 pyparsing
 python-dateutil
 pytz
-pywin32==305.1
+pywin32
 pyzmq
 scikit-learn
 scipy
