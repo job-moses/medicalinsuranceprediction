@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Expense Prediction</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='dist/css/output.css')}}">
+    <script src="{{url_for('static', filename='src/js/index.js')}}"></script>
+    <script src="https://kit.fontawesome.com/25b9a4b305.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="md:px-32  text-white">
+        <nav class="bg-[#4d4b4b] flex justify-between px-3 py-2">
+            <a href="/" class=" max-sm:w-[25%] max-sm:mr-3" onclick="opentab('home', event)"><img class="md:w-[25%]  max-sm:mr-2" src="https://job-moses.github.io/portfolio/images/transparentlogo.png" alt="logo"></a>
+            <ul class="flex justify-between items-center max-sm:flex-grow  ">
+                <li class="md:mr-3 md:px-4 tablinks" onclick="opentab('about', event)">About</li>
+                <li class=" md:px-4 "> <a  href="https://github.com/job-moses/InsuranceExpensePrediction"><i class="fa-brands fa-github "></i></a></li>
+                <li class=" md:px-4 "> <a  href="https://www.linkedin.com/in/moses-job?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                <li class=" md:px-4 "><a  href="https://job-moses.github.io/portfolio/"><i class="fa-solid fa-user-tie"></i></a></li>
+            </ul>
+   
+        </nav>
+    </header>
+    <main class="md:px-32 max-sm:px-4 mb-[2%]">
+        <div class="container pt-4">
+            <div class="tab-contents active-tab md:pt-3" id="home">
+                <div class="flex justify-between flex-wrap"> <p class="text-red-600 bold md:text-3xl max-sm:xl md:px-2">Welcome  </p>
+                    <p class="md:text-xl max-sm:text-sm text-black italic md:mr-3">live life with confidence, <span class="text-red-400 bold">predict</span> your insurance expense</p> 
+                </div>
+                {% if error %}
+                    <p class="text-center"> {{error}} <a href="/"><i class="fa-regular fa-rectangle-xmark text-red-400 text-2xl"></i></a></p>
+                {% endif %}
+                <div>
+                    {% if prediction %}
+                        <h1 class="text-center md:text-2xl"> Predicted Insurance Expense: <span class="text-red-400">${{prediction}}</span> <a href="/"><i class="fa-solid fa-arrow-right text-sm ml-4"></i></a></h1>
+                    {% endif %}
+                </div>
+                <div class="flex flex-wrap pt-5 w-full">
+                    <img  src="https://images.pexels.com/photos/7735625/pexels-photo-7735625.jpeg?auto=compress&cs=tinysrgb&w=500" alt="">
+                    <div class="form flex-grow">
+                        <form action="{{url_for('predict')}}" method="post">
+                            <div class="bg-gray-500 px-7 text-gray-200 py-2">
+                                <div>
+                                    <label for="age">Age</label>
+                                    <input class="w-full pl-2 md:h-10 rounded-md bg-gray-300 outline-none text-black" type="text" name="age" id="age" required pattern="^[1-9][0-9]*$">
+                                </div>
+                                <div>
+                                    <label for="bmi">Bmi</label>
+                                    <input class="w-full md:h-10 rounded-md text-black pl-2 bg-gray-300 outline-none" type="text" name="bmi" id="bmi" required pattern="^\d+(\.\d{1,3})?$">
+                                </div>
+                                <div>
+                                    <label for="children">Number of Children</label>
+                                    <input class="w-full text-black pl-2 md:h-10 rounded-md bg-gray-300 outline-none" type="text" name="children" id="children" required pattern="^[0-9]+$">
+                                </div>
+                                <div class="mt-2 py-3">
+                                    <label for="smoker">Do you smoke</label>
+                                    <select class="text-black rounded-sm" name="smoker" id="smoker">
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                    </select>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="sex">Sex</label>
+                                    <select class="text-black rounded-sm" name="sex" id="sex">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>    
+                                </div>
+                                <div class="mt-2 py-2">
+                                    <label for="region">Region</label>
+                                    <select class="text-black rounded-sm" name="region" id="region">
+                                        <option>Southwest</option>
+                                        <option>Southeast</option>
+                                        <option>Northwest</option>
+                                        <option>Northeast</option>
+                                    </select> 
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button class="px-3  bg-red-500 py-1 rounded-sm">Predict</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-contents" id="about">
+                <h1 class="mt-1 text-xl bold ">About This Project</h1>
+                <p class="lead">This project is a web application built with Flask that predicts insurance charges based on user input data. The application leverages a machine learning model trained on a dataset containing various features related to the individual's health and demographics.</p>
+                <h2 class="mt-2 text-xl bold">Purpose</h2>
+                <p>The purpose of this application is to demonstrate the integration of a machine learning model into a web application. Users can input their information through a form, and the application will predict the insurance charges based on the provided data.</p>
+                <h2 class="mt-2 text-xl bold">Functionalities</h2>
+                <ul>
+                    <li><strong>Input Form:</strong> Users can enter their data such as age, BMI, number of children, sex, smoker status, and region.</li>
+                    <li><strong>Prediction:</strong> The application predicts the medical insurance charges based on the input data using a pre-trained machine learning model.</li>
+                    <li><strong>Metrics:</strong> The trained model predict with R2 Score: 0.850377, that mean predicted outcome are 85.04% confidence of the variability in insurance expenses.</li>
+                </ul>
+                <h2 class="mt-2 text-xl bold">Technical Details</h2>
+                <p>This application is built using the following technologies:</p>
+                <ul>
+                    <li><strong>Flask:</strong> A lightweight WSGI web application framework in Python used to build the web interface.</li>
+                    <li><strong>Pandas:</strong> A powerful data manipulation library in Python used to handle input data.</li>
+                    <li><strong>Scikit-Learn:</strong> A machine learning library in Python used to train and apply the predictive model.</li>
+                    <li><strong>HTML/CSS:</strong> Used for building the front-end interface of the application.</li>
+                </ul>
+                <h2 class="mt-2 text-xl bold">How to Use</h2>
+                <ol>
+                    <li>Navigate to the <strong><a href="/">home page</a> </strong>and fill in the form with your details.</li>
+                    <li>Submit the form to get the  predicted medical insurance charges.</li>
+                </ol>
+            </div>
+        </div>
+    </main>
+    <footer class=" bg-slae-300  md:px-32  max-sm:px-4">
+        <div class="text-center ">
+           <p >&copy; 2024 <strong><span class="text-red-500 texxt-2xl bold">S</span></strong>eigneur Analytics </p>
+                    
+        </div>
+    </footer>
+</body>
+</html>
